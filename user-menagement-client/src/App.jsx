@@ -12,9 +12,44 @@ function App() {
     };
     fetchData();
   }, []);
+  const handleForm = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const age = e.target.age.value;
+    const profession = e.target.profession.value;
+    const users = { name, age, profession };
+    console.log(users);
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(users),
+    });
+  };
   return (
     <>
       <h1>Client Managements Data {user.length}</h1>
+      <form onSubmit={handleForm}>
+        <input type="text" placeholder="Enter Name" name="name" />
+        <br />
+        <br />
+
+        <input type="number" placeholder="Enter Age" name="age" />
+        <br />
+        <br />
+        <input type="text" placeholder="Enter Profession" name="profession" />
+        <br />
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+      {user.map((user) => (
+        <div key={user.id}>
+          <p>
+            {user.name} : {user.age} : {user.profession}
+          </p>
+        </div>
+      ))}
     </>
   );
 }
