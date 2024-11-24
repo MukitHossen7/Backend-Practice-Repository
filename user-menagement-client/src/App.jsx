@@ -28,7 +28,6 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setUser([...user, data]);
         e.target.reset();
       });
