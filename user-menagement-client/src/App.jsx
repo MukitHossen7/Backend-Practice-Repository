@@ -22,10 +22,16 @@ function App() {
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "content-type": "application/json",
       },
       body: JSON.stringify(users),
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setUser([...user, data]);
+        e.target.reset();
+      });
   };
   return (
     <>
