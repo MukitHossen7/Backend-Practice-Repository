@@ -17,6 +17,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        e.target.reset();
       });
   };
   return (
