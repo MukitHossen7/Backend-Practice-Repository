@@ -7,27 +7,19 @@ const Update = () => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
-    console.log(name, email);
+    const user = { name, email };
 
-    // const updatedUser = {
-    //   _id: loaderUsers?._id,
-    //   name: e.target.name.value,
-    //   email: e.target.email.value,
-    // };
-    // console.log(updatedUser);
-    // fetch(`http://localhost:3001/users/${loaderUsers?._id}`, {
-    //   method: "PUT",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(updatedUser),
-    // })
-    //  .then((res) => res.json())
-    //  .then((data) => {
-    //     console.log(data);
-
-    //     window.location.href = "/users";
-    //   });
+    fetch(`http://localhost:3001/users/${loaderUsers?._id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
   return (
     <div>
