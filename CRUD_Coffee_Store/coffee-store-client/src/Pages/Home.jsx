@@ -1,7 +1,9 @@
+import From from "../components/From/From";
+
 const Home = () => {
   return (
     <div>
-      <h2>Home is </h2>
+      <From></From>
     </div>
   );
 };
