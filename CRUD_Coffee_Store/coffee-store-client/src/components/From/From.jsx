@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import swal from "sweetalert";
+import { CoffeeContext } from "../../Provider/ApiProvider";
 
 const From = () => {
+  const { coffees, setCoffees } = useContext(CoffeeContext);
   const handleCoffeeForm = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -20,7 +23,7 @@ const From = () => {
       details,
       photo,
     };
-    console.log(coffeesData);
+
     fetch("http://localhost:5000/coffee", {
       method: "POST",
       headers: {
@@ -30,11 +33,11 @@ const From = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
           e.target.reset();
           swal("success", "New Item Added Successfully", "success");
         }
+        setCoffees([...coffees, data]);
       });
   };
 
