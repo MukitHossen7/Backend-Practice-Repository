@@ -31,9 +31,9 @@ const From = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        if (data.insertedId.length > 0) {
+        if (data.insertedId) {
           e.target.reset();
-          swal("success", "Successfully added coffees data", "success");
+          swal("success", "New Item Added Successfully", "success");
         }
       });
   };
