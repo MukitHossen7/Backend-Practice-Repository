@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const AddBookForm = () => {
   const handleBookForm = (e) => {
     e.preventDefault();
@@ -7,6 +9,23 @@ const AddBookForm = () => {
     const photo = e.target.photo.value;
     const books = { name, author, length, photo };
     console.log(books);
+    fetch("http://localhost:5000/books", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(books),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        e.target.reset();
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Success",
+            text: "Successfully added a new book",
+            icon: "success",
+          });
+        }
+      });
   };
   return (
     <div className="mt-5 w-full">
