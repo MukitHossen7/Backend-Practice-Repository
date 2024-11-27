@@ -25,6 +25,7 @@ const AddBookForm = () => {
             icon: "success",
           });
         }
+        // window.location.href = "/";
       });
   };
   return (

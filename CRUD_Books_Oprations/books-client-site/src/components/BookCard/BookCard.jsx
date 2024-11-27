@@ -1,9 +1,40 @@
 import { useContext } from "react";
 import { BookContext } from "../../Providers/ApiProvider";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const BookCard = () => {
-  const { books } = useContext(BookContext);
-
+  const { books, setBooks } = useContext(BookContext);
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/books/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            if (data.deletedCount > 0) {
+              const updatedBooks = books.filter((book) => book._id !== id);
+              setBooks(updatedBooks);
+              Swal.fire({
+                title: "Deleted!",
+                text: "Successfully deleted book items.",
+                icon: "success",
+              });
+            }
+          });
+      }
+    });
+  };
   return (
     <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-7 mt-10">
       {books.map((book) => (
@@ -31,10 +62,16 @@ const BookCard = () => {
             <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
               View
             </button>
-            <button className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+            <Link
+              to={`/updateBook/${book._id}`}
+              className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+            >
               Update
-            </button>
-            <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+            </Link>
+            <button
+              onClick={() => handleDelete(book._id)}
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            >
               Delete
             </button>
           </div>
