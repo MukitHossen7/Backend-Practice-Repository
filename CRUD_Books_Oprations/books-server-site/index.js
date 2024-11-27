@@ -37,9 +37,13 @@ async function run() {
       const result = await bookCollection.findOne(query);
       res.send(result);
     });
+    app.get("/books/author/:author", async (req, res) => {
+      const author = req.params.author;
+      const result = await bookCollection.find({ author }).toArray();
+      res.send(result);
+    });
     app.post("/books", async (req, res) => {
       const book = req.body;
-      const result = await bookCollection.insertOne(book);
       res.send(result);
     });
     app.delete("/books/:id", async (req, res) => {
