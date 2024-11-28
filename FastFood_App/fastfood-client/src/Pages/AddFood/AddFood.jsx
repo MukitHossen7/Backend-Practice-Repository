@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const AddFood = () => {
   const handleFoodFrom = (e) => {
     e.preventDefault();
@@ -8,6 +10,25 @@ const AddFood = () => {
     const details = e.target.details.value;
     const fastFood = { name, photo, price, category, details };
     console.log(fastFood);
+    fetch("http://localhost:5000/foods", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(fastFood),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Success!",
+            text: "Successfully Added Food Items",
+            icon: "success",
+          });
+          e.target.reset();
+        }
+      });
   };
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg mx-auto mt-10">
@@ -84,7 +105,7 @@ const AddFood = () => {
             <option value="burger">Burger</option>
             <option value="pizza">Pizza</option>
             <option value="drinks">Drinks</option>
-            <option value="dessert">Momo</option>
+            <option value="Momos">Momos</option>
           </select>
         </div>
 

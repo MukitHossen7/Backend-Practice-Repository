@@ -1,7 +1,9 @@
+import FoodCard from "../../components/FoodCard/FoodCard";
+
 const HomePages = () => {
   return (
     <div>
-      <h2>This is our Home page</h2>
+      <FoodCard></FoodCard>
     </div>
   );
 };
