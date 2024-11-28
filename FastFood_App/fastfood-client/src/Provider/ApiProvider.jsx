@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 
 export const FoodContext = createContext();
 const ApiProvider = ({ children }) => {
-  const [foods, setFoods] = useState([]);
+  const [foods, setFoods] = useState(null);
   useEffect(() => {
     const foodAsync = async () => {
       const response = await fetch("http://localhost:5000/foods");

@@ -9,7 +9,6 @@ const AddFood = () => {
     const category = e.target.category.value;
     const details = e.target.details.value;
     const fastFood = { name, photo, price, category, details };
-    console.log(fastFood);
     fetch("http://localhost:5000/foods", {
       method: "POST",
       headers: {
@@ -19,7 +18,6 @@ const AddFood = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
           Swal.fire({
             title: "Success!",
@@ -132,7 +130,7 @@ const AddFood = () => {
             type="submit"
             className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
-            Submit
+            Add Food
           </button>
         </div>
       </form>
