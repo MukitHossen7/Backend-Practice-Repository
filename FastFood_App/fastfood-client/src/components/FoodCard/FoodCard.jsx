@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { FoodContext } from "../../Provider/ApiProvider";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import Search from "../Search/Search";
 
 const FoodCard = () => {
   const { foods, setFoods } = useContext(FoodContext);
@@ -39,7 +40,8 @@ const FoodCard = () => {
       <h2 className="font-semibold text-3xl text-center">
         Our Fast_Foods Items {foods?.length}
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+      <Search></Search>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
         {foods?.map((food) => (
           <div
             key={food._id}
@@ -63,9 +65,12 @@ const FoodCard = () => {
               </div>
             </div>
             <div className="px-6 py-4 flex justify-between">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <Link
+                to={`foodDetails/${food._id}`}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
                 View
-              </button>
+              </Link>
               <Link
                 to={`/editFood/${food._id}`}
                 className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
