@@ -28,6 +28,7 @@ const Header = () => {
             >
               <NavLink to="/">Home</NavLink>
               <NavLink to="/addCoffee">Add Coffee</NavLink>
+              <NavLink to="/signup">SignUp</NavLink>
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost text-xl">
@@ -38,10 +39,13 @@ const Header = () => {
           <ul className="menu menu-horizontal px-1 gap-10 font-semibold">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/addCoffee">Add Coffee</NavLink>
+            <NavLink to="/signup">SignUp</NavLink>
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <Link to="/login" className="btn">
+            LogIn
+          </Link>
         </div>
       </div>
     </div>
