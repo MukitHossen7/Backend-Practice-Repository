@@ -1,8 +1,29 @@
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import toast from "react-hot-toast";
+
 const LogIn = () => {
+  const { logInUser } = useContext(AuthContext);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    logInUser(email, password)
+      .then((result) => {
+        console.log(result);
+        toast.success("Login successfully");
+        e.target.reset();
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Invalid credentials email/password");
+      });
+  };
   return (
     <div className="mt-12">
       <div className="card bg-base-100 w-full mx-auto max-w-lg shrink-0 shadow-2xl">
-        <form className="card-body">
+        <form className="card-body" onSubmit={handleLogin}>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>

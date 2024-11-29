@@ -29,6 +29,7 @@ const Header = () => {
               <NavLink to="/">Home</NavLink>
               <NavLink to="/addCoffee">Add Coffee</NavLink>
               <NavLink to="/signup">SignUp</NavLink>
+              <NavLink to="/users">Users</NavLink>
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost text-xl">
@@ -40,6 +41,7 @@ const Header = () => {
             <NavLink to="/">Home</NavLink>
             <NavLink to="/addCoffee">Add Coffee</NavLink>
             <NavLink to="/signup">SignUp</NavLink>
+            <NavLink to="/users">Users</NavLink>
           </ul>
         </div>
         <div className="navbar-end">

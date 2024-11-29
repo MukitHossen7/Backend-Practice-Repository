@@ -6,6 +6,7 @@ import Update from "../Pages/Update/Update";
 import ViewDetails from "../Pages/ViewDetails/ViewDetails";
 import LogIn from "../Pages/LogIn/LogIn";
 import SignUp from "../Pages/SignUp/SignUp";
+import Users from "../Pages/Users/Users";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,11 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp></SignUp>,
+      },
+      {
+        path: "users",
+        element: <Users></Users>,
+        loader: () => fetch("http://localhost:5000/users"),
       },
     ],
   },

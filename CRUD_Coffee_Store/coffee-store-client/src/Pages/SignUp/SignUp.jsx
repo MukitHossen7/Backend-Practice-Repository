@@ -9,9 +9,24 @@ const SignUp = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(name, email, password);
+    const photo = e.target.photo.value;
+
     createUser(email, password)
       .then((result) => {
+        const creationTime = result?.user?.metadata?.creationTime;
+        const newUser = { name, email, photo, creationTime };
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            e.target.reset();
+            console.log(data);
+          });
         if (result.user) {
           toast.success("Sign Up Successfully");
         }
@@ -33,6 +48,18 @@ const SignUp = () => {
               type="text"
               name="name"
               placeholder="Full Name"
+              className="input input-bordered"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Photo URL</span>
+            </label>
+            <input
+              type="text"
+              name="photo"
+              placeholder="Photo URL"
               className="input input-bordered"
               required
             />
