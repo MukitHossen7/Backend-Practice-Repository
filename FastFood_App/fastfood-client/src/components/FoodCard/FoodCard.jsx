@@ -42,7 +42,7 @@ const FoodCard = () => {
       </h2>
       <Search></Search>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-        {foods?.map((food) => (
+        {foods.map((food) => (
           <div
             key={food._id}
             className=" rounded overflow-hidden shadow-md bg-white"

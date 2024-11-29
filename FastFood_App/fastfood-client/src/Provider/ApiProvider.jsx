@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 
 export const FoodContext = createContext();
 const ApiProvider = ({ children }) => {
-  const [foods, setFoods] = useState(null);
+  const [foods, setFoods] = useState([]);
   const [categoryFoods, setCategoryFoods] = useState(null);
   useEffect(() => {
     const foodAsync = async () => {
@@ -12,7 +12,7 @@ const ApiProvider = ({ children }) => {
       setFoods(data);
     };
     foodAsync();
-  }, []);
+  }, [foods]);
   const foodData = {
     foods,
     setFoods,
