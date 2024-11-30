@@ -16,7 +16,7 @@ const Users = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/users/${id}`, {
+        fetch(`https://coffee-store-server-six-mu.vercel.app/users/${id}`, {
           method: "DELETE",
         })
           .then((response) => response.json())

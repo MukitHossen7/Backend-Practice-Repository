@@ -15,7 +15,7 @@ const LogIn = () => {
         toast.success("Login successfully");
         e.target.reset();
         const loginUser = { email, lastSignInTime };
-        fetch("http://localhost:5000/users", {
+        fetch("https://coffee-store-server-six-mu.vercel.app/users", {
           method: "PATCH",
           headers: {
             "content-type": "application/json",

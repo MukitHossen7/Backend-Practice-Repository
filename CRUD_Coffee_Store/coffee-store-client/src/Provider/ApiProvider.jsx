@@ -7,7 +7,9 @@ const ApiProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchCoffees = async () => {
-      const response = await fetch("http://localhost:5000/coffee");
+      const response = await fetch(
+        "https://coffee-store-server-six-mu.vercel.app/coffee"
+      );
       const data = await response.json();
       setCoffees(data);
     };

@@ -15,7 +15,7 @@ const SignUp = () => {
       .then((result) => {
         const creationTime = result?.user?.metadata?.creationTime;
         const newUser = { name, email, photo, creationTime };
-        fetch("http://localhost:5000/users", {
+        fetch("https://coffee-store-server-six-mu.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
