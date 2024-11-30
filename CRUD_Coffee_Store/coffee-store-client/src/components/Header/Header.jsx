@@ -1,6 +1,17 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { signOut } from "firebase/auth";
+import auth from "../../Firebase/Firebase.init";
+import toast from "react-hot-toast";
 
 const Header = () => {
+  const { authUser } = useContext(AuthContext);
+  const handleSignout = () => {
+    signOut(auth).then(() => {
+      toast.success("LogOut Successfully");
+    });
+  };
   return (
     <div className="pt-10">
       <div className="navbar bg-base-100">
@@ -45,9 +56,15 @@ const Header = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link to="/login" className="btn">
-            LogIn
-          </Link>
+          {authUser ? (
+            <button onClick={handleSignout} className="btn">
+              LogOut
+            </button>
+          ) : (
+            <Link to="/login" className="btn">
+              LogIn
+            </Link>
+          )}
         </div>
       </div>
     </div>
