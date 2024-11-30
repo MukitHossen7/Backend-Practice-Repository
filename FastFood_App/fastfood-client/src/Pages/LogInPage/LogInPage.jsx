@@ -12,7 +12,17 @@ const LogInPage = () => {
     console.log(email, password);
     logInUser(email, password)
       .then((result) => {
-        console.log(result);
+        const lastSignInTime = result?.user?.metadata?.lastSignInTime;
+        const newLogin = { email, lastSignInTime };
+        fetch("http://localhost:5000/users", {
+          method: "PATCH",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(newLogin),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          });
         e.target.reset();
         toast.success("Successfully logged in");
       })

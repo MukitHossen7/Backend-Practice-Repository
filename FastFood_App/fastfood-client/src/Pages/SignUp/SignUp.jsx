@@ -14,9 +14,22 @@ const SignUp = () => {
     console.log(name, photo, email, password);
     createNewUser(email, password)
       .then((result) => {
+        const creationTime = result?.user?.metadata?.creationTime;
+        const newUser = { name, photo, email, creationTime };
         e.target.reset();
         toast.success("Successfully signed up");
         console.log("User created successfully", result);
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          });
       })
       .catch((error) => {
         console.error("Error creating user", error);

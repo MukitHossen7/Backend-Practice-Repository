@@ -1,4 +1,40 @@
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
+
 const Users = () => {
+  const usersInfo = useLoaderData();
+  const [users, setUsers] = useState(usersInfo);
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/users/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your user has been deleted.",
+                icon: "success",
+              });
+              const updatedUsers = users.filter((user) => user._id !== id);
+              setUsers(updatedUsers);
+            }
+            console.log(data);
+          });
+      }
+    });
+  };
   return (
     <div>
       <div className="mt-10">
@@ -16,43 +52,45 @@ const Users = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </th>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
-                        <img
-                          src="https://avatars.githubusercontent.com/u/80270685?v=4"
-                          alt="Photo"
-                        />
+              {users.map((userInfo) => (
+                <tr key={userInfo._id}>
+                  <th>
+                    <label>
+                      <input type="checkbox" className="checkbox" />
+                    </label>
+                  </th>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle h-12 w-12">
+                          <img src={userInfo.photo} alt="Photo" />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{userInfo.name}</div>
                       </div>
                     </div>
-                    <div>
-                      <div className="font-bold">Mukit</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span className="badge badge-ghost py-3 badge-sm">
-                    mukit@gmail.com
-                  </span>
-                </td>
-                <td>sunday</td>
-                <td>2024</td>
-                <th className="flex items-center gap-3">
-                  <button className="btn btn-sm hover:bg-pink-400 bg-pink-400">
-                    View
-                  </button>
-                  <button className="btn hover:bg-red-500 bg-red-500 btn-sm text-white">
-                    X
-                  </button>
-                </th>
-              </tr>
+                  </td>
+                  <td>
+                    <span className="badge badge-ghost py-3 badge-sm">
+                      {userInfo.email}
+                    </span>
+                  </td>
+                  <td>{userInfo.creationTime}</td>
+                  <td>{userInfo.lastSignInTime}</td>
+                  <th className="flex items-center gap-3">
+                    <button className="btn btn-sm hover:bg-pink-400 bg-pink-400">
+                      View
+                    </button>
+                    <button
+                      onClick={() => handleDelete(userInfo._id)}
+                      className="btn hover:bg-red-500 bg-red-500 btn-sm text-white"
+                    >
+                      X
+                    </button>
+                  </th>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
