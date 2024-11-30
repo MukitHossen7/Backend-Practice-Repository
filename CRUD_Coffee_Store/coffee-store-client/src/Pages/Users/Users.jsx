@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 const Users = () => {
   const loaderUser = useLoaderData();
   const [users, setUsers] = useState(loaderUser);
-  console.log(users);
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -46,6 +45,7 @@ const Users = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Creation Time</th>
+              <th>Last Login Time</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -76,6 +76,7 @@ const Users = () => {
                   </span>
                 </td>
                 <td>{user.creationTime}</td>
+                <td>{user.lastSignInTime}</td>
                 <th className="flex items-center gap-3">
                   <button className="btn btn-sm hover:bg-pink-400 bg-pink-400">
                     View

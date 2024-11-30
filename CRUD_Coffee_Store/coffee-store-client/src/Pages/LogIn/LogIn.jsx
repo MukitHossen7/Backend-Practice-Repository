@@ -11,9 +11,21 @@ const LogIn = () => {
 
     logInUser(email, password)
       .then((result) => {
-        console.log(result);
+        const lastSignInTime = result.user?.metadata?.lastSignInTime;
         toast.success("Login successfully");
         e.target.reset();
+        const loginUser = { email, lastSignInTime };
+        fetch("http://localhost:5000/users", {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(loginUser),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          });
       })
       .catch((error) => {
         console.log(error);
