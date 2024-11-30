@@ -5,6 +5,9 @@ import AddFood from "../Pages/AddFood/AddFood";
 import EditFood from "../Pages/EditFood/EditFood";
 import FoodDetails from "../Pages/FoodDetails/FoodDetails";
 import CategoryFood from "../Pages/CategoryFood/CategoryFood";
+import LogInPage from "../Pages/LogInPage/LogInPage";
+import SignUp from "../Pages/SignUp/SignUp";
+import Users from "../Pages/Users/Users";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +37,18 @@ const router = createBrowserRouter([
       {
         path: "/categoryFood/:foodID",
         element: <CategoryFood></CategoryFood>,
+      },
+      {
+        path: "/login",
+        element: <LogInPage></LogInPage>,
+      },
+      {
+        path: "/signUp",
+        element: <SignUp></SignUp>,
+      },
+      {
+        path: "/users",
+        element: <Users></Users>,
       },
     ],
   },
