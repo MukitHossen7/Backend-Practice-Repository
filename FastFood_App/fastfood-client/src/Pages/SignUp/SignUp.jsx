@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 
 const SignUp = () => {
-  const { createNewUser } = useContext(AuthContext);
+  const { createNewUser, user } = useContext(AuthContext);
+  if (user) {
+    return <Navigate to="/"></Navigate>;
+  }
   const handleSignUpForm = (e) => {
     e.preventDefault();
     const name = e.target.name.value;

@@ -1,10 +1,13 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 
 const LogInPage = () => {
-  const { logInUser } = useContext(AuthContext);
+  const { logInUser, user } = useContext(AuthContext);
+  if (user) {
+    return <Navigate to="/"></Navigate>;
+  }
   const handleLogInForm = (e) => {
     e.preventDefault();
     const email = e.target.email.value;

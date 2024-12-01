@@ -8,6 +8,7 @@ import CategoryFood from "../Pages/CategoryFood/CategoryFood";
 import LogInPage from "../Pages/LogInPage/LogInPage";
 import SignUp from "../Pages/SignUp/SignUp";
 import Users from "../Pages/Users/Users";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/addFood",
-        element: <AddFood></AddFood>,
+        element: (
+          <PrivateRoute>
+            <AddFood></AddFood>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/editFood/:id",
@@ -48,7 +53,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/users",
-        element: <Users></Users>,
+        element: (
+          <PrivateRoute>
+            <Users></Users>
+          </PrivateRoute>
+        ),
         loader: () => fetch("http://localhost:5000/users"),
       },
     ],

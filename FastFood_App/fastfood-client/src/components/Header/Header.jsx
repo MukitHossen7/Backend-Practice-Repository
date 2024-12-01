@@ -42,8 +42,13 @@ const Header = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow gap-5 font-medium"
           >
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/addFood">Add Food</NavLink>
-            <NavLink to="/users">Users</NavLink>
+
+            {user && (
+              <div className=" flex gap-10 items-center">
+                <NavLink to="/addFood">Add Food</NavLink>
+                <NavLink to="/users">Users</NavLink>
+              </div>
+            )}
           </ul>
         </div>
 
@@ -54,8 +59,12 @@ const Header = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-10 font-semibold">
           <NavLink to="/">Home</NavLink>
-          <NavLink to="/addFood">Add Food</NavLink>
-          <NavLink to="/users">Users</NavLink>
+          {user && (
+            <div className=" flex gap-10 items-center">
+              <NavLink to="/addFood">Add Food</NavLink>
+              <NavLink to="/users">Users</NavLink>
+            </div>
+          )}
         </ul>
       </div>
       <div className="navbar-end">
