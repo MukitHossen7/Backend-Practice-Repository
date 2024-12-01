@@ -87,6 +87,25 @@ app.delete("/users/:id", async (req, res) => {
   const result = await userCollection.deleteOne(query);
   res.send(result);
 });
+app.get("/users/:id", async (req, res) => {
+  const id = req.params.id;
+  const query = { _id: new ObjectId(id) };
+  const result = await userCollection.findOne(query);
+  res.send(result);
+});
+app.patch("/users/:id", async (req, res) => {
+  const id = req.params.id;
+  const user = req.body;
+  const query = { _id: new ObjectId(id) };
+  const updateUser = {
+    $set: {
+      name: user.name,
+      photo: user.photo,
+    },
+  };
+  const result = await userCollection.updateOne(query, updateUser);
+  res.send(result);
+});
 app.get("/", (req, res) => {
   res.send("Welcome to the FastFood API!");
 });
