@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, matchPath, NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { signOut } from "firebase/auth";
 import auth from "../../Firebase/Firebase.init";
@@ -7,6 +7,25 @@ import toast from "react-hot-toast";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
+  const location = useLocation();
+  useEffect(() => {
+    const title = {
+      "/": "Home || Fast_Food",
+      "/addFood": "Add Food || Fast_Food",
+      "/login": "LogIn || Fast_Food",
+      "/signUp": "SignUp || Fast_Food",
+      "/users": "Users || Fast_Food",
+    };
+    if (matchPath("/editFood/:id", location.pathname)) {
+      document.title = "Update Food || Fast_Food";
+    } else if (matchPath("/foodDetails/:id", location.pathname)) {
+      document.title = "Food Details || Fast_Food";
+    } else if (matchPath("userDetails/:id", location.pathname)) {
+      document.title = "Update User || Fast_Food";
+    } else {
+      document.title = title[location.pathname] || "Fast_Food";
+    }
+  }, [location]);
   const handleLogOut = () => {
     signOut(auth)
       .then(() => {
