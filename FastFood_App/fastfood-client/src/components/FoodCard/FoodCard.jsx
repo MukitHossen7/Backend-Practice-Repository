@@ -17,7 +17,7 @@ const FoodCard = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/foods/${id}`, {
+        fetch(`https://fastfood-server.vercel.app/foods/${id}`, {
           method: "DELETE",
         })
           .then((response) => response.json())

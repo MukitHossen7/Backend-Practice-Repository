@@ -22,7 +22,7 @@ const SignUp = () => {
         e.target.reset();
         toast.success("Successfully signed up");
         console.log("User created successfully", result);
-        fetch("http://localhost:5000/users", {
+        fetch("https://fastfood-server.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

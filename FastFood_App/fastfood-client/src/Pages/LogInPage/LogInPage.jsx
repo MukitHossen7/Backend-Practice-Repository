@@ -17,7 +17,7 @@ const LogInPage = () => {
       .then((result) => {
         const lastSignInTime = result?.user?.metadata?.lastSignInTime;
         const newLogin = { email, lastSignInTime };
-        fetch("http://localhost:5000/users", {
+        fetch("https://fastfood-server.vercel.app/users", {
           method: "PATCH",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(newLogin),

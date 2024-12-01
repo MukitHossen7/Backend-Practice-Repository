@@ -9,7 +9,7 @@ const AddFood = () => {
     const category = e.target.category.value;
     const details = e.target.details.value;
     const fastFood = { name, photo, price, category, details };
-    fetch("http://localhost:5000/foods", {
+    fetch("https://fastfood-server.vercel.app/foods", {
       method: "POST",
       headers: {
         "content-type": "application/json",

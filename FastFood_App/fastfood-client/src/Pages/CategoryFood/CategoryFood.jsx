@@ -6,7 +6,7 @@ const CategoryFood = () => {
   const [catFoods, setCatFoods] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/foods/category/${foodID}`)
+    fetch(`https://fastfood-server.vercel.app/foods/category/${foodID}`)
       .then((response) => response.json())
       .then((data) => setCatFoods(data));
   }, []);

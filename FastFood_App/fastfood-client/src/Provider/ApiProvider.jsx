@@ -7,7 +7,7 @@ const ApiProvider = ({ children }) => {
   const [categoryFoods, setCategoryFoods] = useState(null);
   useEffect(() => {
     const foodAsync = async () => {
-      const response = await fetch("http://localhost:5000/foods");
+      const response = await fetch("https://fastfood-server.vercel.app/foods");
       const data = await response.json();
       setFoods(data);
     };

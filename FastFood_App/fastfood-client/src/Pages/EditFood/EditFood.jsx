@@ -20,7 +20,7 @@ const EditFood = () => {
       category,
       details,
     };
-    fetch(`http://localhost:5000/foods/${loaderFoods._id}`, {
+    fetch(`https://fastfood-server.vercel.app/foods/${loaderFoods._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
