@@ -9,6 +9,7 @@ import LogInPage from "../Pages/LogInPage/LogInPage";
 import SignUp from "../Pages/SignUp/SignUp";
 import Users from "../Pages/Users/Users";
 import PrivateRoute from "./PrivateRoute";
+import UserDetails from "../Pages/UserDetails/UserDetails";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,12 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: () => fetch("https://fastfood-server.vercel.app/users"),
+      },
+      {
+        path: "/userDetails/:id",
+        element: <UserDetails></UserDetails>,
+        loader: ({ params }) =>
+          fetch(`https://fastfood-server.vercel.app/users/${params.id}`),
       },
     ],
   },

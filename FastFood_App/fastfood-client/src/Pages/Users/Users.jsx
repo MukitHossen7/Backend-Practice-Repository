@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Users = () => {
@@ -79,9 +79,12 @@ const Users = () => {
                   <td>{userInfo.creationTime}</td>
                   <td>{userInfo.lastSignInTime}</td>
                   <th className="flex items-center gap-3">
-                    <button className="btn btn-sm hover:bg-pink-400 bg-pink-400">
+                    <Link
+                      to={`/userDetails/${userInfo._id}`}
+                      className="btn btn-sm hover:bg-pink-400 bg-pink-400"
+                    >
                       View
-                    </button>
+                    </Link>
                     <button
                       onClick={() => handleDelete(userInfo._id)}
                       className="btn hover:bg-red-500 bg-red-500 btn-sm text-white"
