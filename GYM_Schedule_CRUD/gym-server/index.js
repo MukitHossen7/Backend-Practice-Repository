@@ -16,6 +16,13 @@ app.get("/schedules", async (req, res) => {
   const schedule = await scheduleCollection.find().sort({ _id: -1 }).toArray();
   res.send(schedule);
 });
+
+app.get("/schedules/:id", async (req, res) => {
+  const id = req.params.id;
+  const params = { _id: new ObjectId(id) };
+  const result = await scheduleCollection.findOne(params);
+  res.send(result);
+});
 app.post("/schedules", async (req, res) => {
   const schedule = req.body;
   const result = await scheduleCollection.insertOne(schedule);
