@@ -13,8 +13,18 @@ app.use(cors());
 const scheduleCollection = client.db("scheduleDB").collection("scheduleData");
 
 app.get("/schedules", async (req, res) => {
+  const { title } = req.query;
+
+  if (title) {
+    const findSchedule = await scheduleCollection
+      .find({
+        title: { $regex: title, $options: "i" },
+      })
+      .toArray();
+    return res.send(findSchedule);
+  }
   const schedule = await scheduleCollection.find().sort({ _id: -1 }).toArray();
-  res.send(schedule);
+  return res.send(schedule);
 });
 
 app.get("/schedules/:id", async (req, res) => {
