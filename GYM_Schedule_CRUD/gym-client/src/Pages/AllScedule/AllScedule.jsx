@@ -4,7 +4,7 @@ import {
   // MdOutlineDoneAll,
   MdOutlineSystemUpdateAlt,
 } from "react-icons/md";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const AllScedule = () => {
@@ -92,9 +92,12 @@ const AllScedule = () => {
                     >
                       X
                     </button>
-                    <button className="btn bg-pink-600 hover:bg-pink-600 text-white btn-sm">
+                    <Link
+                      to={`/updateSchedule/${data._id}`}
+                      className="btn bg-pink-600 hover:bg-pink-600 text-white btn-sm"
+                    >
                       <MdOutlineSystemUpdateAlt className="text-xl" />
-                    </button>
+                    </Link>
                     <button className="btn bg-pink-600 hover:bg-pink-600 text-white btn-sm">
                       {/* <MdOutlineDoneAll /> */}
                       <MdDone />
