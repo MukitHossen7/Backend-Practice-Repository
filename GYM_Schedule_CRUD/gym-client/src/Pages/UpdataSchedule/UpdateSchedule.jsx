@@ -16,9 +16,8 @@ const UpdateSchedule = () => {
     const day = e.target.day.value;
     const time = e.target.time.value;
     const date = startDate.toLocaleDateString();
-    console.log(title, day, time, date);
     const update = { title, day, time, date };
-    fetch(`http://localhost:5000/schedules/${updatesData._id}`, {
+    fetch(`https://gym-server-theta.vercel.app/schedules/${updatesData._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

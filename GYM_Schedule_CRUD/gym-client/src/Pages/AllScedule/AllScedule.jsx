@@ -10,8 +10,17 @@ import Swal from "sweetalert2";
 const AllScedule = () => {
   const allSchedule = useLoaderData();
   const [schedulesData, setSchedulesData] = useState(allSchedule);
-  const [search, setSearch] = useState();
-  console.log(search);
+
+  const handleFindSchedule = (e) => {
+    const search = e.target.value;
+    console.log(search);
+    fetch(`https://gym-server-theta.vercel.app/schedules?title=${search}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setSchedulesData(data);
+      });
+  };
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -23,7 +32,7 @@ const AllScedule = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/schedules/${id}`, {
+        fetch(`https://gym-server-theta.vercel.app/schedules/${id}`, {
           method: "DELETE",
         })
           .then((response) => response.json())
@@ -47,9 +56,9 @@ const AllScedule = () => {
     <div className="mt-10">
       <div className="w-[400px] mx-auto mb-4">
         <input
-          onChange={(e) => setSearch(e.target.value)}
           type="text"
           name="search"
+          onChange={handleFindSchedule}
           placeholder="search"
           className="input input-bordered w-full"
           required

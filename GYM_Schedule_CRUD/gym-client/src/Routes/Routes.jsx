@@ -20,13 +20,13 @@ const router = createBrowserRouter([
       {
         path: "/allSchedule",
         element: <AllScedule></AllScedule>,
-        loader: () => fetch("http://localhost:5000/schedules"),
+        loader: () => fetch("https://gym-server-theta.vercel.app/schedules"),
       },
       {
         path: "/updateSchedule/:id",
         element: <UpdateSchedule></UpdateSchedule>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/schedules/${params.id}`),
+          fetch(`https://gym-server-theta.vercel.app/schedules/${params.id}`),
       },
     ],
   },

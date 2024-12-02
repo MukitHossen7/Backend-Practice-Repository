@@ -23,7 +23,7 @@ const AddSchedule = () => {
     const time = formatTime12Hour(selectedTime);
     const date = startDate.toLocaleDateString();
     const addSchedule = { title, day, time, date };
-    fetch("http://localhost:5000/schedules", {
+    fetch("https://gym-server-theta.vercel.app/schedules", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
