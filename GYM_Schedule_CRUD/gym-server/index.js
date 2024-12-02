@@ -28,6 +28,21 @@ app.post("/schedules", async (req, res) => {
   const result = await scheduleCollection.insertOne(schedule);
   res.send(result);
 });
+app.patch("/schedules/:id", async (req, res) => {
+  const id = req.params.id;
+  const schedule = req.body;
+  const params = { _id: new ObjectId(id) };
+  const updated = {
+    $set: {
+      title: schedule.title,
+      day: schedule.day,
+      time: schedule.time,
+      date: schedule.date,
+    },
+  };
+  const result = await scheduleCollection.updateOne(params, updated);
+  res.send(result);
+});
 app.delete("/schedules/:id", async (req, res) => {
   const id = req.params.id;
   const params = { _id: new ObjectId(id) };
