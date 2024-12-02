@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
 const AddSchedule = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(new Date());
@@ -21,7 +22,22 @@ const AddSchedule = () => {
     const day = e.target.day.value;
     const time = formatTime12Hour(selectedTime);
     const date = startDate.toLocaleDateString();
-    console.log(title, day, time, date);
+    const addSchedule = { title, day, time, date };
+    fetch("http://localhost:5000/schedules", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(addSchedule),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire("Added your schedule");
+        }
+        console.log(data);
+        e.target.reset();
+      });
   };
   return (
     <div>
