@@ -1,11 +1,15 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UpdateSchedule = () => {
   const updatesData = useLoaderData();
-  const [startDate, setStartDate] = useState(updatesData.date);
-  console.log(updatesData);
+  const navigate = useNavigate();
+  const [startDate, setStartDate] = useState(
+    updatesData.date ? new Date(updatesData.date) : new Date()
+  );
+
   const handleUpdate = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
@@ -13,6 +17,21 @@ const UpdateSchedule = () => {
     const time = e.target.time.value;
     const date = startDate.toLocaleDateString();
     console.log(title, day, time, date);
+    const update = { title, day, time, date };
+    fetch(`http://localhost:5000/schedules/${updatesData._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(update),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          Swal.fire("Updated your schedule");
+          navigate(-1);
+        }
+      });
   };
   return (
     <div className="bg-[#F4F3F0] lg:p-24 rounded-lg mt-8">
