@@ -13,12 +13,12 @@ app.use(cors());
 const scheduleCollection = client.db("scheduleDB").collection("scheduleData");
 
 app.get("/schedules", async (req, res) => {
-  const { title } = req.query;
+  const { searchParams } = req.query;
 
-  if (title) {
+  if (searchParams) {
     const findSchedule = await scheduleCollection
       .find({
-        title: { $regex: title, $options: "i" },
+        title: { $regex: searchParams, $options: "i" },
       })
       .toArray();
     return res.send(findSchedule);
@@ -48,6 +48,17 @@ app.patch("/schedules/:id", async (req, res) => {
       day: schedule.day,
       time: schedule.time,
       date: schedule.date,
+    },
+  };
+  const result = await scheduleCollection.updateOne(params, updated);
+  res.send(result);
+});
+app.patch("/status/:id", async (req, res) => {
+  const id = req.params.id;
+  const params = { _id: new ObjectId(id) };
+  const updated = {
+    $set: {
+      isComplete: true,
     },
   };
   const result = await scheduleCollection.updateOne(params, updated);
