@@ -22,7 +22,7 @@ const AddSchedule = () => {
     const day = e.target.day.value;
     const time = formatTime12Hour(selectedTime);
     const date = startDate.toLocaleDateString();
-    const addSchedule = { title, day, time, date };
+    const addSchedule = { title, day, time, date, isComplete: false };
     fetch("https://gym-server-theta.vercel.app/schedules", {
       method: "POST",
       headers: {

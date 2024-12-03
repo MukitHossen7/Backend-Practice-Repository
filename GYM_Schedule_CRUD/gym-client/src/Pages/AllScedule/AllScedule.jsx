@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   MdDone,
+  MdOutlineDoneAll,
   // MdOutlineDoneAll,
   MdOutlineSystemUpdateAlt,
 } from "react-icons/md";
@@ -14,10 +15,11 @@ const AllScedule = () => {
   const handleFindSchedule = (e) => {
     const search = e.target.value;
     console.log(search);
-    fetch(`https://gym-server-theta.vercel.app/schedules?title=${search}`)
+    fetch(
+      `https://gym-server-theta.vercel.app/schedules?searchParams=${search}`
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setSchedulesData(data);
       });
   };
@@ -51,6 +53,25 @@ const AllScedule = () => {
           });
       }
     });
+  };
+  const handleTaskUpdate = (id) => {
+    fetch(`https://gym-server-theta.vercel.app/status/${id}`, {
+      method: "PATCH",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          const updatedData = schedulesData.map((schedule) =>
+            schedule._id === id ? { ...schedule, isComplete: true } : schedule
+          );
+          setSchedulesData(updatedData);
+          Swal.fire({
+            title: "Task Updated!",
+            text: "Your task status has been updated.",
+            icon: "success",
+          });
+        }
+      });
   };
   return (
     <div className="mt-10">
@@ -107,9 +128,11 @@ const AllScedule = () => {
                     >
                       <MdOutlineSystemUpdateAlt className="text-xl" />
                     </Link>
-                    <button className="btn bg-pink-600 hover:bg-pink-600 text-white btn-sm">
-                      {/* <MdOutlineDoneAll /> */}
-                      <MdDone />
+                    <button
+                      onClick={() => handleTaskUpdate(data._id)}
+                      className="btn bg-pink-600 hover:bg-pink-600 text-white btn-sm"
+                    >
+                      {data.isComplete ? <MdOutlineDoneAll /> : <MdDone />}
                     </button>
                   </th>
                 </tr>
